@@ -1,42 +1,40 @@
 /* Nome do Projeto: Banco de Dados da EmpresaSoftware  
 Componentes: 
-	Deysiele da Silva Sousa 		RA: 2049280
-	Elisangela Barbosa Vieira		RA: 2329028
-	Helen Santos Cedro 				RA: 2353635
-	Janaína Moreira do Nascimento 	RA: 2632213  
-	Thiago da Penha Feitosa 		RA: 2415595
-
+Deysiele
+Elisangela
+Helen
+Janaína Moreira do Nascimento 	RA: 2632213  
+Thiago
  */
 
--- Criando o Banco de dados 
+/* Criando o Banco de dados */
 CREATE DATABASE bd_empresa_software;
-
 USE bd_empresa_software;
 
 /* Criação da Tabela tarefa */
 CREATE TABLE tarefa (
-    cod_tarefa int PRIMARY KEY, /* PK */
+    cod_tarefa int PRIMARY KEY UNIQUE, /* PK */
     descricao_tarefa varchar(350) NOT NULL
 );
 
 /* Criação da Tabela atividade */
 CREATE TABLE atividade (
-    cod_atividade int PRIMARY KEY, /* PK */
-    nome_atividade char(100) NOT NULL,
+    cod_atividade int PRIMARY KEY UNIQUE, /* PK */
+    nome_atividade CHAR(100) NOT NULL,
     cod_tarefa int,
     FOREIGN KEY (cod_tarefa) REFERENCES tarefa (cod_tarefa) /* FK */
 );
 
 /* Criação da Tabela ferramenta */
 CREATE TABLE ferramenta (
-    cod_ferramenta int PRIMARY KEY, /* PK */
+    cod_ferramenta int PRIMARY KEY UNIQUE, /* PK */
     tipo_ferramenta varchar(30) NOT NULL,
     versao_ferramenta varchar(30) NOT NULL
 );
 
 /* Criação da Tabela endereco */
 CREATE TABLE endereco (
-    cod_endereco int PRIMARY KEY, /* PK */
+    cod_endereco int PRIMARY KEY UNIQUE, /* PK */
     rua varchar(100) NOT NULL,
     bairro varchar(100) NOT NULL,
     cidade varchar(90) NOT NULL,
@@ -49,20 +47,20 @@ CREATE TABLE endereco (
 
 /* Criação da Tabela funcao */
 CREATE TABLE funcao (
-    cod_funcao int PRIMARY KEY, /* PK */
+    cod_funcao int PRIMARY KEY UNIQUE, /* PK */
     tipo_funcao char(50) NOT NULL
 );
 
 /* Criação da Tabela equipe */
 CREATE TABLE equipe (
-    cod_equipe int PRIMARY KEY, /* PK */
+    cod_equipe int PRIMARY KEY UNIQUE, /* PK */
     nome_equipe varchar(30) NOT NULL,
     quantidade_recurso int NOT NULL
 );
 
 /* Criação da Tabela recurso */
 CREATE TABLE recurso (
-    cod_recurso int PRIMARY KEY, /* PK */
+    cod_recurso int PRIMARY KEY UNIQUE, /* PK */
     nome_recurso char(100) NOT NULL,
     cod_endereco int,
     cod_funcao int,
@@ -76,7 +74,7 @@ CREATE TABLE recurso (
 
 /* Criação da Tabela projeto */
 CREATE TABLE projeto (
-    cod_projeto int PRIMARY KEY, /* PK */
+    cod_projeto int PRIMARY KEY UNIQUE, /* PK */
     nome_projeto varchar(50) NOT NULL,
     data_inicio_proj date NOT NULL,
     data_fim_proj date,
@@ -88,30 +86,31 @@ CREATE TABLE projeto (
     cod_equipe int,
     FOREIGN KEY (cod_atividade) REFERENCES atividade (cod_atividade), /* FK */
     FOREIGN KEY (cod_equipe) REFERENCES equipe (cod_equipe) /* FK */
+    CHECK (status_proj IN ('Em andamento', 'Finalizado', 'Cancelado', 'Aguardando Prioridade'))
 );
 
 /* Criação da Tabela salario */
 CREATE TABLE salario (
-    cod_salario int PRIMARY KEY, /* PK */
+    cod_salario int PRIMARY KEY UNIQUE, /* PK */
     data_aumento date NOT NULL,
-    valor_aumento money NOT NULL,
-    valor_salario money NOT NULL,
+    valor_aumento decimal(10,2) NOT NULL,
+    valor_salario decimal(10,2) NOT NULL,
     status_salario char(15) NOT NULL, /* "Vigente" ou "Reajustado" */
     cod_recurso int,
     FOREIGN KEY (cod_recurso) REFERENCES recurso (cod_recurso) /* FK */
+    CHECK (status_salario IN ('vigente', 'reajustado')
 );
 
 /* Criação da Tabela telefone */
 CREATE TABLE telefone (
-    cod_fone int PRIMARY KEY, /* PK */
+    cod_fone int PRIMARY KEY UNIQUE, /* PK */
     tipo_fone varchar(30) NOT NULL,
     numero_fone varchar(25) NOT NULL,
     cod_recurso int,
     FOREIGN KEY (cod_recurso) REFERENCES recurso (cod_recurso) /* FK */
 );
 
-
-----------------Inserções nas tabelas----------------- 
+/* Inserções nas tabelas */
 INSERT INTO tarefa (cod_tarefa, descricao_tarefa)  
 VALUES  
 (1, 'Instalação do Pacote Office'),  
@@ -195,4 +194,5 @@ VALUES
 (4, 'Celular', '11927654321', 4),  
 (5, 'Fixo', '11317654321', 5);
 
+ 
 

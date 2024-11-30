@@ -1,10 +1,11 @@
 /* Nome do Projeto: Banco de Dados da EmpresaSoftware  
 Componentes: 
-Deysiele
-Elisangela
-Helen
-Janaína Moreira do Nascimento 	RA: 2632213  
-Thiago
+	Deysiele da Silva Sousa 		RA: 2049280
+	Elisangela Barbosa Vieira		RA: 2329028
+	Helen Santos Cedro 				RA: 2353635
+	Janaína Moreira do Nascimento 	RA: 2632213  
+	Thiago da Penha Feitosa 		RA: 2415595
+
  */
 
 /* Criando o Banco de dados */
